@@ -1,0 +1,108 @@
+#Dicionário para armazenar os dados do colaborador:
+colaborador = []
+#Bibliotecas:
+import datetime
+while True:
+        #Funções:
+        class Setores:
+                def __init__(self, titulo, admicao):
+                        self.titulo = titulo
+                        self.admicao = admicao
+
+                def adicionar_colaborador(self, nome, idade, duracao, genero):
+                        self.nome = nome
+                        self.idade = idade
+                        self.duracao = duracao
+                        self.genero = genero
+
+        nome = input("Digite o nome do colaborador: ")
+
+        # Receber a data de nascimento como string do usuário
+        nascimento_str = input("Digite a data de nascimento do colaborador (DD/MM/YYYY): ")
+
+        # Converter a string para um objeto datetime.date
+        while True:
+                try:
+                        nascimento = datetime.datetime.strptime(nascimento_str, "%d/%m/%Y").date()
+                        break
+                except ValueError:
+                        print("Formato de data inválido. Por favor, use o formato DD/MM/YYYY.")
+
+        # Receber a data de admição de um funcionário
+        admicao_str = input("Digite a data de admição do colaborador (DD/MM/YYYY): ")
+
+        # Converter a string para um objeto datetime.date
+        while True:
+                try:
+                        adimicao = datetime.datetime.strptime(admicao_str, "%d/%m/%Y").date()
+                        break
+                except ValueError:
+                        print("Formato de data inválido. Por favor, use o formato DD/MM/YYYY.")
+
+        #variáveis relacionadas a idade do colaborador:
+        data_atual = datetime.date.today()
+        idade_em_dias = (data_atual - nascimento).days
+        idade = idade_em_dias // 365
+
+        #variáveis relacionadas ao tempo de empresa:
+        duracao_em_dias = (data_atual - adimicao).days
+        duracao = duracao_em_dias // 365
+
+        # Loop para escolha de um setor
+        while True:
+                titulo = input("Digite um número que corresponda ao setor que esse colaborador ficará vinculado:\n"
+                                "[1] = Suporte Técnico\n"
+                                "[2] = Atendimento\n"
+                                "[3] = Financeiro\n"
+                                "[4] = Gestores\n")
+                if titulo in ["1", "2", "3", "4"]:
+                        break
+                else:
+                        print("Digite um operador válido")
+
+                if titulo == "1":
+                        cargo = "Suporte Técnico"
+                elif titulo == "2":
+                        cargo = "Atendimento"
+                if titulo == "3":
+                        cargo = "Financeiro"
+                elif titulo == "4":
+                        titulo = "Gestor"
+
+        # Fim do loop setor
+        #verificar gênero:
+        def sexo():
+                while True:
+                        verificacao_genero = input('''Digite agora o gênero do colaborador:
+[M] - Masculino
+[F] - Feminino ''').upper()
+
+                        if verificacao_genero in ["M", "F"]:
+                                break
+                        else:
+                                print("Digite um valor válido.")
+
+                if verificacao_genero == "M":
+                        return "Masculino"
+                elif verificacao_genero == "F":
+                        return "Feminino"
+
+        # Chama a função
+        genero = sexo()
+        colaborador.append(f"Nome: {nome} | Idade: {idade} anos | Sexo: {genero} | Cargo: {titulo} | Tempo de colaboração: {duracao} anos")
+    
+        try:
+                reiniciar = input('''Dados inseridos com sucesso!
+Escolha entre às opções para prosseguir:
+[R] - Reinicia o programa
+[V] - Visualização dos dados inseridos''').upper()
+                if reiniciar == "R":
+                        continue
+                elif reiniciar == "V":
+                        for operacao in colaborador:
+                                print(operacao)
+                        break
+                else:
+                        print("Escolha uma opção válida!")
+        except ValueError:
+                print("Comando inválido!")
